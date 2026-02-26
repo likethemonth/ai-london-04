@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import multimodalArchitectureImage from "./assets/multimodal-architecture.png";
 
 export const SLIDE_THEMES = [
   { glowA: "#4FD1C5", glowB: "#60A5FA", glowC: "#22D3EE" },
@@ -17,7 +18,7 @@ function GraphicShell({ title, subtitle, children }) {
         <div className="text-[10px] uppercase tracking-[0.18em] text-white/45">
           Visual Layer
         </div>
-        <div className="font-semibold text-white/90">{title}</div>
+        <div className="text-white/90">{title}</div>
         <div className="text-xs text-white/60">{subtitle}</div>
       </div>
       <div className="h-[calc(100%-4rem)]">{children}</div>
@@ -27,41 +28,17 @@ function GraphicShell({ title, subtitle, children }) {
 
 function MultimodalGraphic() {
   return (
-    <GraphicShell title="Shared Representation" subtitle="Multimodal AI Architecture">
-      <svg viewBox="0 0 280 170" className="h-full w-full rounded-2xl border border-white/10 bg-[#020611]">
-        <defs>
-          <radialGradient id="mmCore" cx="50%" cy="50%" r="60%">
-            <stop offset="0%" stopColor="rgba(34,211,238,0.45)" />
-            <stop offset="100%" stopColor="rgba(34,211,238,0.05)" />
-          </radialGradient>
-        </defs>
-        <circle cx="140" cy="85" r="34" fill="url(#mmCore)" stroke="rgba(125,211,252,0.6)" />
-        <text x="140" y="89" textAnchor="middle" fontSize="9.5" fill="rgba(255,255,255,0.9)">
-          Shared Space
-        </text>
-        {[
-          { label: "Text", x: 44, y: 30, c: "rgba(96,165,250,0.35)" },
-          { label: "Image", x: 222, y: 30, c: "rgba(167,139,250,0.3)" },
-          { label: "Audio", x: 44, y: 130, c: "rgba(52,211,153,0.32)" },
-          { label: "Video", x: 222, y: 130, c: "rgba(251,113,133,0.3)" },
-        ].map((m) => (
-          <g key={m.label}>
-            <rect
-              x={m.x - 28}
-              y={m.y - 14}
-              width="56"
-              height="28"
-              rx="9"
-              fill={m.c}
-              stroke="rgba(255,255,255,0.26)"
-            />
-            <text x={m.x} y={m.y + 3.2} textAnchor="middle" fontSize="10" fill="rgba(255,255,255,0.9)">
-              {m.label}
-            </text>
-            <line x1={m.x} y1={m.y} x2="140" y2="85" stroke="rgba(255,255,255,0.32)" strokeDasharray="3 3" />
-          </g>
-        ))}
-      </svg>
+    <GraphicShell
+      title="Multimodal AI Architecture"
+      subtitle="A conceptual diagram showing how diverse types of input information are integrated and processed within a multimodal model."
+    >
+      <img
+        src={multimodalArchitectureImage}
+        alt="Multimodal AI Architecture diagram"
+        className="h-full w-full object-contain object-top"
+        draggable={false}
+        loading="eager"
+      />
     </GraphicShell>
   );
 }
