@@ -18,7 +18,10 @@ import { SlideGraphic } from "./SlideGraphics";
  * - Overview grid toggle: O
  */
 
-const SLIDES = [
+const PENTAFORM_PDF_PATH = "/pentaform-ai-ecosystem.pdf";
+const PENTAFORM_PDF_PAGE_COUNT = 18;
+
+const WORKSHOP_SLIDES = [
   {
     title: "Multimodal Models",
     kicker: "Local-first AI Workshop",
@@ -39,7 +42,7 @@ const SLIDES = [
               key={h}
               className="rounded-2xl border border-white/10 bg-black/25 p-4"
             >
-              <div className="font-semibold text-white">{h}</div>
+              <div className="text-white">{h}</div>
               <div className="mt-1 text-sm text-white/70">{d}</div>
             </div>
           ))}
@@ -52,11 +55,12 @@ const SLIDES = [
   {
     title: "Cloud vs Local",
     kicker: "Tradeoffs that matter",
+    hideGraphic: true,
     body: (
       <div className="mt-6 w-full max-w-4xl">
         <div className="grid grid-cols-2 gap-4">
           <div className="rounded-2xl border border-white/10 bg-black/25 p-6">
-            <div className="text-lg font-semibold text-white">Cloud</div>
+            <div className="text-lg text-white">Cloud</div>
             <ul className="mt-3 space-y-2 text-white/75">
               <li>• Easy scale, best frontier quality</li>
               <li>• Network latency + ongoing token cost</li>
@@ -64,7 +68,7 @@ const SLIDES = [
             </ul>
           </div>
           <div className="rounded-2xl border border-white/10 bg-black/25 p-6">
-            <div className="text-lg font-semibold text-white">Local</div>
+            <div className="text-lg text-white">Local</div>
             <ul className="mt-3 space-y-2 text-white/75">
               <li>• Private by default</li>
               <li>• Low latency, offline-capable</li>
@@ -87,6 +91,7 @@ const SLIDES = [
   {
     title: "What makes a model good locally?",
     kicker: "Builder checklist",
+    hideGraphic: true,
     body: (
       <div className="mt-6 w-full max-w-4xl">
         <div className="grid grid-cols-2 gap-4">
@@ -102,13 +107,13 @@ const SLIDES = [
               key={t}
               className="rounded-2xl border border-white/10 bg-black/25 p-5 text-white/80"
             >
-              <div className="font-semibold text-white">{t}</div>
+              <div className="text-white">{t}</div>
             </div>
           ))}
         </div>
         <div className="mt-6 rounded-2xl border border-white/10 bg-black/25 p-6">
           <div className="text-white/85">
-            <span className="font-semibold text-white">Rule of thumb:</span> the
+            <span className="text-white">Rule of thumb:</span> the
             best model is the one you can run reliably on your machine.
           </div>
         </div>
@@ -119,8 +124,9 @@ const SLIDES = [
   {
     title: "Good Local Multimodal Models",
     kicker: "Practical VLM choices",
+    compactHeading: true,
     body: (
-      <div className="mt-6 grid w-full max-w-5xl grid-cols-2 gap-4">
+      <div className="mt-4 grid w-full max-w-5xl grid-cols-2 gap-3">
         {[
           {
             name: "Qwen2.5-Omni-7B",
@@ -173,7 +179,7 @@ const SLIDES = [
         ].map((m) => (
           <div
             key={m.name}
-            className="rounded-2xl border bg-black/25 p-5"
+            className="rounded-2xl border bg-black/25 p-4"
             style={{ borderColor: `${m.color}66` }}
           >
             <div className="flex items-center justify-between">
@@ -181,7 +187,7 @@ const SLIDES = [
                 href={m.href}
                 target="_blank"
                 rel="noreferrer"
-                className="text-lg font-semibold text-white underline decoration-white/30 underline-offset-4 transition hover:decoration-white/80"
+                className="text-base text-white underline decoration-white/30 underline-offset-4 transition hover:decoration-white/80"
               >
                 {m.name}
               </a>
@@ -192,23 +198,20 @@ const SLIDES = [
                 {m.fit}
               </div>
             </div>
-            <div className="mt-2 text-white/75">{m.why}</div>
-            <div className="mt-3 flex flex-wrap gap-2">
-              {m.facts.map(([label, value]) => (
-                <div
-                  key={label}
-                  className="rounded-lg border bg-black/35 px-2 py-1 text-[11px] text-white/80"
-                  style={{ borderColor: `${m.color}66` }}
-                >
-                  <span className="text-white/60">{label}:</span> {value}
-                </div>
+            <div className="mt-1.5 text-white/75">{m.why}</div>
+            <div className="mt-2 text-[11px] leading-relaxed text-white/70">
+              {m.facts.map(([label, value], factIndex) => (
+                <span key={label}>
+                  {factIndex > 0 ? " · " : ""}
+                  <span className="text-white/55">{label}:</span> {value}
+                </span>
               ))}
             </div>
             <a
               href={m.href}
               target="_blank"
               rel="noreferrer"
-              className="mt-3 inline-block text-xs transition hover:text-white"
+              className="mt-2 inline-block text-xs transition hover:text-white"
               style={{ color: m.color }}
             >
               View on Hugging Face
@@ -221,6 +224,20 @@ const SLIDES = [
       "Name-drop a few strong local options. Don't overclaim 'best' - emphasize 'good for local demos'.",
   },
 ];
+
+const PENTAFORM_SLIDES = Array.from(
+  { length: PENTAFORM_PDF_PAGE_COUNT },
+  (_, pageIndex) => ({
+    title: `Pentaform AI Ecosystem · ${pageIndex + 1}`,
+    kicker: "Pentaform AI Ecosystem",
+    hideGraphic: true,
+    pdfPage: pageIndex + 1,
+    body: null,
+    notes: `Source PDF page ${pageIndex + 1}.`,
+  })
+);
+
+const SLIDES = [...PENTAFORM_SLIDES, ...WORKSHOP_SLIDES];
 
 function clamp(n, min, max) {
   return Math.max(min, Math.min(max, n));
@@ -267,7 +284,24 @@ function ProgressDots({ index, setIndex }) {
 }
 
 function SlideFrame({ slide, index, staticMode = false }) {
+  if (slide.pdfPage) {
+    return (
+      <div className="h-full w-full overflow-hidden rounded-2xl border border-white/10 bg-white">
+        <iframe
+          src={`${PENTAFORM_PDF_PATH}#page=${slide.pdfPage}&view=FitH`}
+          title={`Pentaform AI Ecosystem page ${slide.pdfPage}`}
+          className="h-full w-full"
+          loading={staticMode ? "eager" : "lazy"}
+        />
+      </div>
+    );
+  }
+
+  const showVisual = !slide.hideGraphic;
   const visualClass = staticMode ? "block" : "hidden xl:block";
+  const contentGridClass = showVisual
+    ? "grid h-full gap-5 xl:grid-cols-[minmax(0,1fr)_320px]"
+    : "grid h-full gap-5 grid-cols-1";
 
   return (
     <div className="flex h-full w-full flex-col overflow-hidden">
@@ -276,7 +310,13 @@ function SlideFrame({ slide, index, staticMode = false }) {
           <div className="text-sm uppercase tracking-wide text-white/60">
             {slide.kicker}
           </div>
-          <h1 className="mt-2 text-4xl font-semibold leading-tight text-white md:text-5xl lg:text-[3.2rem]">
+          <h1
+            className={`font-heading mt-2 leading-tight text-white ${
+              slide.compactHeading
+                ? "text-3xl md:text-4xl lg:text-[2.8rem]"
+                : "text-4xl md:text-5xl lg:text-[3.2rem]"
+            }`}
+          >
             {slide.title}
           </h1>
         </div>
@@ -285,22 +325,24 @@ function SlideFrame({ slide, index, staticMode = false }) {
         </div>
       </div>
       <div className="mt-4 min-h-0 flex-1">
-        <div className="grid h-full gap-5 xl:grid-cols-[minmax(0,1fr)_320px]">
+        <div className={contentGridClass}>
           <div className="min-w-0">{slide.body}</div>
-          {staticMode ? (
-            <div className={visualClass}>
-              <SlideGraphic index={index} />
-            </div>
-          ) : (
-            <motion.div
-              className={visualClass}
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.35, delay: 0.15 }}
-            >
-              <SlideGraphic index={index} />
-            </motion.div>
-          )}
+          {showVisual
+            ? (staticMode ? (
+                <div className={visualClass}>
+                  <SlideGraphic index={index} />
+                </div>
+              ) : (
+                <motion.div
+                  className={visualClass}
+                  initial={{ opacity: 0, y: 14 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.35, delay: 0.15 }}
+                >
+                  <SlideGraphic index={index} />
+                </motion.div>
+              ))
+            : null}
         </div>
       </div>
     </div>
@@ -311,7 +353,7 @@ function PresenterPanel({ slide, index }) {
   return (
     <div className="h-full w-full rounded-3xl border border-white/10 bg-black/25 p-6">
       <div className="flex items-center justify-between">
-        <div className="font-semibold text-white">Presenter Notes</div>
+        <div className="text-white">Presenter Notes</div>
         <div className="text-sm text-white/60">
           Slide {index + 1} / {SLIDES.length}
         </div>
@@ -359,7 +401,7 @@ export default function EncodeWorkshopDeck() {
 
   if (printMode) {
     return (
-      <div className="print-deck bg-[#0b0b0f] text-white">
+      <div className="deck-typography print-deck bg-[#0b0b0f] text-white">
         {SLIDES.map((s, i) => (
           <section key={i} className="print-slide">
             <div className="print-slide-inner rounded-[28px] border border-white/10 bg-gradient-to-b from-white/5 to-black/40 p-8 shadow-[0_20px_80px_rgba(0,0,0,0.6)]">
@@ -374,14 +416,14 @@ export default function EncodeWorkshopDeck() {
   const slide = SLIDES[index];
 
   return (
-    <div className="min-h-screen w-full bg-[#0b0b0f] text-white">
+    <div className="deck-typography min-h-screen w-full bg-[#0b0b0f] text-white">
       <div className="flex items-center justify-between border-b border-white/10 px-6 py-4">
         <div className="flex items-center gap-3">
           <div className="flex h-9 w-9 items-center justify-center rounded-2xl border border-white/10 bg-white/10">
             <span className="font-semibold">E</span>
           </div>
           <div>
-            <div className="font-semibold text-white">Encode Workshop Deck</div>
+            <div className="text-white">Encode Workshop Deck</div>
             <div className="text-sm text-white/60">
               ←/→ to navigate · O overview · P presenter
             </div>
@@ -429,7 +471,7 @@ export default function EncodeWorkshopDeck() {
                 <div className="text-xs uppercase tracking-wide text-white/60">
                   Slide {i + 1}
                 </div>
-                <div className="mt-2 text-lg font-semibold text-white">{s.title}</div>
+                <div className="mt-2 text-lg text-white">{s.title}</div>
                 <div className="mt-2 line-clamp-2 text-sm text-white/60">
                   {s.kicker}
                 </div>
@@ -491,7 +533,7 @@ export default function EncodeWorkshopDeck() {
               <div className="lg:col-span-2">
                 <PresenterPanel slide={slide} index={index} />
                 <div className="mt-4 rounded-3xl border border-white/10 bg-black/25 p-5">
-                  <div className="font-semibold text-white">Quick prompts</div>
+                  <div className="text-white">Quick prompts</div>
                   <div className="mt-3 space-y-2 text-sm text-white/75">
                     <div className="rounded-xl border border-white/10 bg-black/25 p-3">
                       "Show me an example screenshot and ask the model to explain
