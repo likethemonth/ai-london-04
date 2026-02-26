@@ -28,76 +28,39 @@ function GraphicShell({ title, subtitle, children }) {
 function MultimodalGraphic() {
   return (
     <GraphicShell title="Shared Representation" subtitle="Multimodal AI Architecture">
-      <svg viewBox="0 0 280 170" className="h-full w-full">
+      <svg viewBox="0 0 280 170" className="h-full w-full rounded-2xl border border-white/10 bg-[#020611]">
         <defs>
-          <radialGradient id="archGlow" cx="50%" cy="50%" r="60%">
-            <stop offset="0%" stopColor="#70d7ec" stopOpacity="0.35" />
-            <stop offset="100%" stopColor="#70d7ec" stopOpacity="0" />
+          <radialGradient id="mmCore" cx="50%" cy="50%" r="60%">
+            <stop offset="0%" stopColor="rgba(34,211,238,0.45)" />
+            <stop offset="100%" stopColor="rgba(34,211,238,0.05)" />
           </radialGradient>
-          <linearGradient id="archBg" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#020816" />
-            <stop offset="100%" stopColor="#00040f" />
-          </linearGradient>
-          <marker id="archArrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
-            <path d="M0,0 L8,4 L0,8 z" fill="rgba(184,196,214,0.75)" />
-          </marker>
         </defs>
-        <rect x="0" y="0" width="280" height="170" fill="url(#archBg)" />
-        <circle cx="140" cy="87" r="42" fill="url(#archGlow)" />
-
-        <text x="10" y="16" fontSize="8.5" fill="rgba(194,203,218,0.78)">Inputs</text>
-        <text x="236" y="16" fontSize="8.5" fill="rgba(194,203,218,0.78)">Outputs</text>
-
-        <g fill="none" stroke="rgba(170,186,207,0.72)" strokeWidth="1.2">
-          <rect x="8" y="24" width="36" height="26" rx="5" />
-          <rect x="8" y="62" width="36" height="26" rx="5" />
-          <rect x="8" y="100" width="36" height="26" rx="5" />
-          <rect x="236" y="24" width="36" height="26" rx="5" />
-          <rect x="236" y="62" width="36" height="26" rx="5" />
-          <rect x="236" y="100" width="36" height="26" rx="5" />
-        </g>
-
-        <g fill="rgba(231,238,248,0.92)">
-          <text x="48" y="37" fontSize="7.8">Image</text>
-          <text x="48" y="47" fontSize="6.4" fill="rgba(180,195,213,0.74)">screenshots</text>
-          <text x="48" y="75" fontSize="7.8">Text</text>
-          <text x="48" y="85" fontSize="6.4" fill="rgba(180,195,213,0.74)">prompts</text>
-          <text x="48" y="113" fontSize="7.8">Video</text>
-          <text x="48" y="123" fontSize="6.4" fill="rgba(180,195,213,0.74)">events</text>
-
-          <text x="194" y="37" textAnchor="end" fontSize="7.8">Caption</text>
-          <text x="194" y="47" textAnchor="end" fontSize="6.4" fill="rgba(180,195,213,0.74)">summaries</text>
-          <text x="194" y="75" textAnchor="end" fontSize="7.8">Speech</text>
-          <text x="194" y="85" textAnchor="end" fontSize="6.4" fill="rgba(180,195,213,0.74)">audio reply</text>
-          <text x="194" y="113" textAnchor="end" fontSize="7.8">Action</text>
-          <text x="194" y="123" textAnchor="end" fontSize="6.4" fill="rgba(180,195,213,0.74)">decisions</text>
-        </g>
-
-        <path
-          d="M110 104c-8 0-15-6-15-14 0-6 4-11 10-13 2-9 9-14 19-14 6 0 12 2 16 7 2-1 5-2 8-2 9 0 16 7 16 16v2c6 2 10 7 10 13 0 8-7 14-15 14h-49z"
-          fill="rgba(7,16,34,0.92)"
-          stroke="rgba(175,192,212,0.74)"
-          strokeWidth="1.2"
-        />
-        <text x="136" y="84" textAnchor="middle" fontSize="8.5" fill="rgba(236,243,250,0.95)">
-          Multimodal
+        <circle cx="140" cy="85" r="34" fill="url(#mmCore)" stroke="rgba(125,211,252,0.6)" />
+        <text x="140" y="89" textAnchor="middle" fontSize="9.5" fill="rgba(255,255,255,0.9)">
+          Shared Space
         </text>
-        <text x="136" y="95" textAnchor="middle" fontSize="8.5" fill="rgba(236,243,250,0.95)">
-          Processing
-        </text>
-
-        <g fill="none" stroke="rgba(173,190,211,0.66)" strokeWidth="1.2" markerEnd="url(#archArrow)">
-          <line x1="80" y1="37" x2="106" y2="37" />
-          <line x1="80" y1="75" x2="104" y2="75" />
-          <line x1="80" y1="113" x2="104" y2="113" />
-          <line x1="171" y1="37" x2="234" y2="37" />
-          <line x1="171" y1="75" x2="234" y2="75" />
-          <line x1="171" y1="113" x2="234" y2="113" />
-        </g>
-
-        <text x="140" y="162" textAnchor="middle" fontSize="8" fill="rgba(188,201,218,0.74)">
-          Shared multimodal representation
-        </text>
+        {[
+          { label: "Text", x: 44, y: 30, c: "rgba(96,165,250,0.35)" },
+          { label: "Image", x: 222, y: 30, c: "rgba(167,139,250,0.3)" },
+          { label: "Audio", x: 44, y: 130, c: "rgba(52,211,153,0.32)" },
+          { label: "Video", x: 222, y: 130, c: "rgba(251,113,133,0.3)" },
+        ].map((m) => (
+          <g key={m.label}>
+            <rect
+              x={m.x - 28}
+              y={m.y - 14}
+              width="56"
+              height="28"
+              rx="9"
+              fill={m.c}
+              stroke="rgba(255,255,255,0.26)"
+            />
+            <text x={m.x} y={m.y + 3.2} textAnchor="middle" fontSize="10" fill="rgba(255,255,255,0.9)">
+              {m.label}
+            </text>
+            <line x1={m.x} y1={m.y} x2="140" y2="85" stroke="rgba(255,255,255,0.32)" strokeDasharray="3 3" />
+          </g>
+        ))}
       </svg>
     </GraphicShell>
   );
@@ -181,28 +144,28 @@ function CloudLocalGraphic() {
 
 function ModelsGraphic() {
   const rows = [
-    { n: "LLaVA", v: 88, c: "#FB7185" },
-    { n: "MiniCPM-V", v: 77, c: "#60A5FA" },
-    { n: "Qwen-VL", v: 92, c: "#F59E0B" },
-    { n: "Gemma-V", v: 80, c: "#34D399" },
+    { n: "Qwen2.5-Omni-7B", params: 7.0, c: "#8B5CF6" },
+    { n: "MiniCPM-V 2.6", params: 8.0, c: "#06B6D4" },
+    { n: "Qwen2.5-VL-7B", params: 8.29, c: "#F59E0B" },
+    { n: "Gemma 3 4B", params: 4.3, c: "#22C55E" },
   ];
   return (
-    <GraphicShell title="Model Fit Map" subtitle="Demo reliability vs footprint">
+    <GraphicShell title="Model Fit Map" subtitle="Published parameter count (B)">
       <div className="h-full rounded-2xl border border-white/10 bg-slate-950/65 p-3">
-        <div className="mb-2 text-[11px] text-white/60">Practical local score</div>
+        <div className="mb-2 text-[11px] text-white/60">Actual model parameters (billions)</div>
         <div className="space-y-2.5">
           {rows.map((r, i) => (
             <div key={r.n}>
               <div className="mb-1 flex items-center justify-between text-[11px] text-white/70">
                 <span>{r.n}</span>
-                <span>{r.v}</span>
+                <span>{r.params.toFixed(2)}B</span>
               </div>
               <div className="h-2.5 rounded-full bg-white/10">
                 <motion.div
                   className="h-full rounded-full"
                   style={{ backgroundColor: r.c }}
                   initial={{ width: "8%" }}
-                  animate={{ width: `${r.v}%` }}
+                  animate={{ width: `${(r.params / 8.29) * 100}%` }}
                   transition={{ duration: 0.9, delay: i * 0.16 }}
                 />
               </div>
@@ -210,10 +173,10 @@ function ModelsGraphic() {
           ))}
         </div>
         <div className="mt-3 grid grid-cols-2 gap-2 text-[10px] text-white/55">
-          <div className="rounded-lg border border-white/10 bg-white/5 p-2">OCR strength</div>
-          <div className="rounded-lg border border-white/10 bg-white/5 p-2">Latency profile</div>
-          <div className="rounded-lg border border-white/10 bg-white/5 p-2">VRAM fit</div>
-          <div className="rounded-lg border border-white/10 bg-white/5 p-2">Tooling support</div>
+          <div className="rounded-lg border border-white/10 bg-white/5 p-2">Qwen2.5-Omni: 7B</div>
+          <div className="rounded-lg border border-white/10 bg-white/5 p-2">MiniCPM-V 2.6: 8B</div>
+          <div className="rounded-lg border border-white/10 bg-white/5 p-2">Qwen2.5-VL-7B: 8.29B</div>
+          <div className="rounded-lg border border-white/10 bg-white/5 p-2">Gemma 3 4B: 4.3B</div>
         </div>
       </div>
     </GraphicShell>
@@ -258,100 +221,10 @@ function ChecklistGraphic() {
   );
 }
 
-function TallyGraphic() {
-  const points = [
-    { x: 34, y: 42, r: 7, c: "#34D399" },
-    { x: 88, y: 78, r: 6, c: "#60A5FA" },
-    { x: 134, y: 60, r: 8, c: "#FB7185" },
-    { x: 182, y: 96, r: 7, c: "#F59E0B" },
-    { x: 240, y: 58, r: 9, c: "#A78BFA" },
-  ];
-
-  return (
-    <GraphicShell title="Memory Graph" subtitle="Episodes linked into useful context">
-      <svg viewBox="0 0 280 170" className="h-full w-full">
-        <motion.path
-          d="M24 45C62 12 96 128 140 74C170 38 205 137 252 56"
-          fill="none"
-          stroke="rgba(255,255,255,0.42)"
-          strokeWidth="2"
-          strokeLinecap="round"
-          initial={{ pathLength: 0 }}
-          animate={{ pathLength: 1 }}
-          transition={{ duration: 1.4 }}
-        />
-        {points.map((p, i) => (
-          <motion.g
-            key={i}
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.4, delay: i * 0.15 }}
-          >
-            <circle cx={p.x} cy={p.y} r={p.r + 7} fill={`${p.c}22`} />
-            <circle cx={p.x} cy={p.y} r={p.r} fill={p.c} />
-          </motion.g>
-        ))}
-        <rect
-          x="26"
-          y="114"
-          width="92"
-          height="38"
-          rx="10"
-          fill="rgba(2,6,23,0.72)"
-          stroke="rgba(255,255,255,0.18)"
-        />
-        <rect
-          x="126"
-          y="114"
-          width="126"
-          height="38"
-          rx="10"
-          fill="rgba(2,6,23,0.72)"
-          stroke="rgba(255,255,255,0.18)"
-        />
-        <text x="34" y="136" fontSize="10" fill="rgba(255,255,255,0.78)">
-          capture -&gt; distill
-        </text>
-        <text x="134" y="136" fontSize="10" fill="rgba(255,255,255,0.78)">
-          recall -&gt; proactive assist
-        </text>
-      </svg>
-    </GraphicShell>
-  );
-}
-
-function BigIdeaGraphic() {
-  return (
-    <GraphicShell title="Companion Orbit" subtitle="From query engine to lived memory">
-      <div className="relative h-full overflow-hidden rounded-2xl border border-[#3b4f77]/60 bg-[#000822]/85">
-        <div className="absolute left-1/2 top-1/2 h-14 w-14 -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-200/45 bg-cyan-300/10 shadow-[0_0_60px_rgba(89,213,245,0.38)]" />
-        <motion.div
-          className="absolute left-1/2 top-1/2 h-36 w-36 -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-200/25"
-          animate={{ rotate: 360 }}
-          transition={{ duration: 20, ease: "linear", repeat: Infinity }}
-        >
-          <div className="absolute -top-1 left-1/2 h-2.5 w-2.5 -translate-x-1/2 rounded-full bg-cyan-300 shadow-[0_0_12px_rgba(89,213,245,0.85)]" />
-        </motion.div>
-        <motion.div
-          className="absolute left-1/2 top-1/2 h-56 w-56 -translate-x-1/2 -translate-y-1/2 rounded-full border border-teal-200/20"
-          animate={{ rotate: -360 }}
-          transition={{ duration: 28, ease: "linear", repeat: Infinity }}
-        >
-          <div className="absolute -top-1 left-1/2 h-2.5 w-2.5 -translate-x-1/2 rounded-full bg-teal-300 shadow-[0_0_12px_rgba(93,224,198,0.8)]" />
-        </motion.div>
-        <div className="absolute bottom-3 left-1/2 w-full -translate-x-1/2 text-center text-[10px] uppercase tracking-[0.2em] text-slate-300/55">
-          presence • memory • agency
-        </div>
-      </div>
-    </GraphicShell>
-  );
-}
-
 export function SlideGraphic({ index }) {
   if (index === 0) return <MultimodalGraphic />;
   if (index === 1) return <CloudLocalGraphic />;
-  if (index === 2) return <ModelsGraphic />;
-  if (index === 3) return <ChecklistGraphic />;
-  if (index === 4) return <TallyGraphic />;
-  return <BigIdeaGraphic />;
+  if (index === 2) return <ChecklistGraphic />;
+  if (index === 3) return <ModelsGraphic />;
+  return <ModelsGraphic />;
 }

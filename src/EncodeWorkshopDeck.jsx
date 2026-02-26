@@ -6,7 +6,6 @@ import {
   Circle,
   CircleDot,
   Grid3X3,
-  MonitorPlay,
   Speaker,
 } from "lucide-react";
 import { SlideGraphic } from "./SlideGraphics";
@@ -86,87 +85,6 @@ const SLIDES = [
       "Keep it practical: latency, privacy, cost, control. Tie back to OpenClaw philosophy.",
   },
   {
-    title: "Good Local Multimodal Models",
-    kicker: "VLMs + Audio building blocks",
-    body: (
-      <div className="mt-6 grid w-full max-w-5xl grid-cols-2 gap-4">
-        {[
-          {
-            name: "LLaVA",
-            why: "Solid image reasoning; lots of variants; great for demos",
-            fit: "Desktop / Ollama",
-            href: "https://huggingface.co/llava-hf/llava-1.5-7b-hf",
-          },
-          {
-            name: "MiniCPM-V",
-            why: "Efficient, strong small-model performance",
-            fit: "Laptop / edge",
-            href: "https://huggingface.co/openbmb/MiniCPM-V-2_6",
-          },
-          {
-            name: "Qwen-VL",
-            why: "Strong OCR + visual reasoning; multilingual",
-            fit: "Bigger GPU",
-            href: "https://huggingface.co/Qwen/Qwen2-VL-7B-Instruct",
-          },
-          {
-            name: "Gemma (vision variants)",
-            why: "Optimized ecosystem; clean deployment story",
-            fit: "Product builders",
-            href: "https://huggingface.co/google/gemma-3-4b-it",
-          },
-        ].map((m) => (
-          <div
-            key={m.name}
-            className="rounded-2xl border border-white/10 bg-black/25 p-5"
-          >
-            <div className="flex items-center justify-between">
-              <a
-                href={m.href}
-                target="_blank"
-                rel="noreferrer"
-                className="text-lg font-semibold text-white underline decoration-white/30 underline-offset-4 transition hover:decoration-white/80"
-              >
-                {m.name}
-              </a>
-              <div className="rounded-full border border-white/10 bg-black/30 px-3 py-1 text-xs text-white/70">
-                {m.fit}
-              </div>
-            </div>
-            <div className="mt-2 text-white/75">{m.why}</div>
-            <a
-              href={m.href}
-              target="_blank"
-              rel="noreferrer"
-              className="mt-3 inline-block text-xs text-cyan-200/85 transition hover:text-cyan-100"
-            >
-              View on Hugging Face
-            </a>
-          </div>
-        ))}
-        <div className="col-span-2 rounded-2xl border border-white/10 bg-black/25 p-5">
-          <div className="flex items-center gap-2 font-semibold text-white">
-            <Speaker className="h-4 w-4" /> Audio block: Whisper (local STT)
-          </div>
-          <div className="mt-2 text-white/75">
-            Combine local speech-to-text with a VLM for a full multimodal
-            agent loop.
-          </div>
-          <a
-            href="https://huggingface.co/openai/whisper-small.en"
-            target="_blank"
-            rel="noreferrer"
-            className="mt-3 inline-block text-xs text-cyan-200/85 transition hover:text-cyan-100"
-          >
-            View Whisper on Hugging Face
-          </a>
-        </div>
-      </div>
-    ),
-    notes:
-      "Name-drop a few strong local options. Don't overclaim 'best' - emphasize 'good for local demos'.",
-  },
-  {
     title: "What makes a model good locally?",
     kicker: "Builder checklist",
     body: (
@@ -199,86 +117,108 @@ const SLIDES = [
     notes: "Keep it actionable. This is what people ask during setup.",
   },
   {
-    title: "Tally",
-    kicker: "Multimodal memory engine",
+    title: "Good Local Multimodal Models",
+    kicker: "Practical VLM choices",
     body: (
-      <div className="mt-6 grid w-full max-w-5xl grid-cols-12 gap-6">
-        <div className="col-span-7 rounded-2xl border border-white/10 bg-black/25 p-6">
-          <div className="text-lg leading-relaxed text-white/80">
-            Tally isn't just a chatbot.
-            <div className="mt-3">
-              It captures{" "}
-              <span className="font-semibold text-white">real-world context</span>{" "}
-              (vision + audio), filters noise, and builds a{" "}
-              <span className="font-semibold text-white">
-                long-term memory layer
-              </span>{" "}
-              you can query.
-            </div>
-          </div>
-          <div className="mt-6 grid grid-cols-2 gap-3">
-            {[
-              ["Capture", "Visual + audio context"],
-              ["Distill", "Episodes + routines"],
-              ["Link", "People, places, habits"],
-              ["Assist", "Fast recall + proactive help"],
-            ].map(([h, d]) => (
-              <div
-                key={h}
-                className="rounded-2xl border border-white/10 bg-black/25 p-4"
+      <div className="mt-6 grid w-full max-w-5xl grid-cols-2 gap-4">
+        {[
+          {
+            name: "Qwen2.5-Omni-7B",
+            why: "Native multimodal model (text + image + audio + video)",
+            fit: "Desktop / server",
+            href: "https://huggingface.co/Qwen/Qwen2.5-Omni-7B",
+            color: "#8B5CF6",
+            facts: [
+              ["Params", "7B"],
+              ["OmniBench avg", "56.13"],
+              ["15s BF16 VRAM", "31.11GB"],
+            ],
+          },
+          {
+            name: "MiniCPM-V 2.6",
+            why: "Efficient, strong small-model performance",
+            fit: "Laptop / edge",
+            href: "https://huggingface.co/openbmb/MiniCPM-V-2_6",
+            color: "#06B6D4",
+            facts: [
+              ["Params", "8B"],
+              ["Ollama size", "5.5GB"],
+              ["OpenCompass avg", "65.2"],
+            ],
+          },
+          {
+            name: "Qwen2.5-VL-7B",
+            why: "Strong OCR + visual reasoning; multilingual",
+            fit: "Desktop / mini-PC",
+            href: "https://huggingface.co/Qwen/Qwen2.5-VL-7B-Instruct",
+            color: "#F59E0B",
+            facts: [
+              ["Params", "8.29B"],
+              ["Ollama size", "6.0GB"],
+              ["MMMU (val)", "58.6"],
+            ],
+          },
+          {
+            name: "Gemma 3 4B",
+            why: "Small multimodal model with strong local footprint",
+            fit: "Laptop-friendly",
+            href: "https://huggingface.co/google/gemma-3-4b-it",
+            color: "#22C55E",
+            facts: [
+              ["Params", "4.3B"],
+              ["Ollama size", "3.3GB"],
+              ["Context", "128K"],
+            ],
+          },
+        ].map((m) => (
+          <div
+            key={m.name}
+            className="rounded-2xl border bg-black/25 p-5"
+            style={{ borderColor: `${m.color}66` }}
+          >
+            <div className="flex items-center justify-between">
+              <a
+                href={m.href}
+                target="_blank"
+                rel="noreferrer"
+                className="text-lg font-semibold text-white underline decoration-white/30 underline-offset-4 transition hover:decoration-white/80"
               >
-                <div className="font-semibold text-white">{h}</div>
-                <div className="mt-1 text-sm text-white/70">{d}</div>
+                {m.name}
+              </a>
+              <div
+                className="rounded-full border bg-black/30 px-3 py-1 text-xs text-white/80"
+                style={{ borderColor: `${m.color}88` }}
+              >
+                {m.fit}
               </div>
-            ))}
+            </div>
+            <div className="mt-2 text-white/75">{m.why}</div>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {m.facts.map(([label, value]) => (
+                <div
+                  key={label}
+                  className="rounded-lg border bg-black/35 px-2 py-1 text-[11px] text-white/80"
+                  style={{ borderColor: `${m.color}66` }}
+                >
+                  <span className="text-white/60">{label}:</span> {value}
+                </div>
+              ))}
+            </div>
+            <a
+              href={m.href}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-3 inline-block text-xs transition hover:text-white"
+              style={{ color: m.color }}
+            >
+              View on Hugging Face
+            </a>
           </div>
-        </div>
-        <div className="col-span-5 rounded-2xl border border-white/10 bg-black/25 p-6">
-          <div className="flex items-center gap-2 font-semibold text-white">
-            <MonitorPlay className="h-4 w-4" /> Local-first pipeline
-          </div>
-          <div className="mt-4 space-y-3 text-white/75">
-            <div className="rounded-xl border border-white/10 bg-black/25 p-3">
-              On-device capture & filtering
-            </div>
-            <div className="rounded-xl border border-white/10 bg-black/25 p-3">
-              Edge processing when possible
-            </div>
-            <div className="rounded-xl border border-white/10 bg-black/25 p-3">
-              Selective cloud reasoning (optional)
-            </div>
-            <div className="rounded-xl border border-white/10 bg-black/25 p-3">
-              Privacy-first by default
-            </div>
-          </div>
-        </div>
+        ))}
       </div>
     ),
     notes:
-      "This is your 'why you' slide. Keep it crisp: perception + memory + local-first privacy.",
-  },
-  {
-    title: "The Big Idea",
-    kicker: "From asking -> experiencing",
-    body: (
-      <div className="mt-10 w-full max-w-4xl">
-        <div className="rounded-3xl border border-white/10 bg-black/35 p-10">
-          <div className="text-xl leading-relaxed text-white/80">
-            OpenClaw helps you automate locally.
-          </div>
-          <div className="mt-4 text-xl leading-relaxed text-white/80">
-            Tally adds local perception + memory.
-          </div>
-          <div className="mt-10 text-3xl font-semibold leading-tight text-white md:text-4xl">
-            The next layer isn't "ask AI something."
-            <span className="mt-3 block text-white/85">
-              It's "AI experiences life with you."
-            </span>
-          </div>
-        </div>
-      </div>
-    ),
-    notes: "End with the punchline. Pause after reading the last line.",
+      "Name-drop a few strong local options. Don't overclaim 'best' - emphasize 'good for local demos'.",
   },
 ];
 
@@ -326,7 +266,9 @@ function ProgressDots({ index, setIndex }) {
   );
 }
 
-function SlideFrame({ slide, index }) {
+function SlideFrame({ slide, index, staticMode = false }) {
+  const visualClass = staticMode ? "block" : "hidden xl:block";
+
   return (
     <div className="flex h-full w-full flex-col overflow-hidden">
       <div className="flex items-start justify-between gap-4">
@@ -345,14 +287,20 @@ function SlideFrame({ slide, index }) {
       <div className="mt-4 min-h-0 flex-1">
         <div className="grid h-full gap-5 xl:grid-cols-[minmax(0,1fr)_320px]">
           <div className="min-w-0">{slide.body}</div>
-          <motion.div
-            className="hidden xl:block"
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.35, delay: 0.15 }}
-          >
-            <SlideGraphic index={index} />
-          </motion.div>
+          {staticMode ? (
+            <div className={visualClass}>
+              <SlideGraphic index={index} />
+            </div>
+          ) : (
+            <motion.div
+              className={visualClass}
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.35, delay: 0.15 }}
+            >
+              <SlideGraphic index={index} />
+            </motion.div>
+          )}
         </div>
       </div>
     </div>
@@ -379,6 +327,9 @@ export default function EncodeWorkshopDeck() {
   const [index, setIndex] = useState(0);
   const [overview, setOverview] = useState(false);
   const [presenter, setPresenter] = useState(false);
+  const printMode =
+    typeof window !== "undefined" &&
+    new URLSearchParams(window.location.search).has("print-pdf");
 
   const go = useCallback(
     (delta) => setIndex((i) => clamp(i + delta, 0, SLIDES.length - 1)),
@@ -405,6 +356,20 @@ export default function EncodeWorkshopDeck() {
   );
 
   useHotkeys(handlers);
+
+  if (printMode) {
+    return (
+      <div className="print-deck bg-[#0b0b0f] text-white">
+        {SLIDES.map((s, i) => (
+          <section key={i} className="print-slide">
+            <div className="print-slide-inner rounded-[28px] border border-white/10 bg-gradient-to-b from-white/5 to-black/40 p-8 shadow-[0_20px_80px_rgba(0,0,0,0.6)]">
+              <SlideFrame slide={s} index={i} staticMode />
+            </div>
+          </section>
+        ))}
+      </div>
+    );
+  }
 
   const slide = SLIDES[index];
 

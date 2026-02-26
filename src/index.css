@@ -11,3 +11,43 @@ body,
 body {
   margin: 0;
 }
+
+.print-deck {
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.print-slide {
+  display: flex;
+  height: 9in;
+  width: 16in;
+  align-items: center;
+  justify-content: center;
+  padding: 0.32in;
+  box-sizing: border-box;
+  break-after: page;
+  page-break-after: always;
+}
+
+.print-slide:last-child {
+  break-after: auto;
+  page-break-after: auto;
+}
+
+.print-slide-inner {
+  height: 100%;
+  width: 100%;
+}
+
+@page {
+  size: 16in 9in;
+  margin: 0;
+}
+
+@media print {
+  html,
+  body {
+    margin: 0;
+    background: #0b0b0f;
+  }
+}
