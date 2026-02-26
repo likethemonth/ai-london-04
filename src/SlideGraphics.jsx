@@ -26,149 +26,74 @@ function GraphicShell({ title, subtitle, children }) {
 }
 
 function MultimodalGraphic() {
-  const inputs = [
-    { name: "Image", detail: "screenshots", y: 30, type: "image" },
-    { name: "Text", detail: "prompts", y: 68, type: "text" },
-    { name: "Video", detail: "events", y: 106, type: "video" },
-  ];
-  const outputs = [
-    { name: "Caption", detail: "summaries", y: 30, type: "caption" },
-    { name: "Speech", detail: "audio reply", y: 68, type: "speech" },
-    { name: "Action", detail: "decisions", y: 106, type: "action" },
-  ];
-
-  function Icon({ type, x, y }) {
-    const iconStroke = "rgba(195,208,224,0.82)";
-    if (type === "image") {
-      return (
-        <g>
-          <rect x={x + 6} y={y + 7} width="20" height="14" rx="2" fill="none" stroke={iconStroke} />
-          <circle cx={x + 22} cy={y + 11} r="2.2" fill={iconStroke} />
-          <path d={`M${x + 8} ${y + 19}l5-5 4 3 4-5 5 7`} fill="none" stroke={iconStroke} />
-        </g>
-      );
-    }
-    if (type === "text" || type === "caption") {
-      return (
-        <g>
-          <line x1={x + 7} y1={y + 10} x2={x + 25} y2={y + 10} stroke={iconStroke} />
-          <line x1={x + 7} y1={y + 15} x2={x + 23} y2={y + 15} stroke={iconStroke} />
-          <line x1={x + 7} y1={y + 20} x2={x + 20} y2={y + 20} stroke={iconStroke} />
-        </g>
-      );
-    }
-    if (type === "video") {
-      return (
-        <g>
-          <rect x={x + 6} y={y + 7} width="20" height="14" rx="2" fill="none" stroke={iconStroke} />
-          <polygon points={`${x + 13},${y + 11} ${x + 13},${y + 17} ${x + 18},${y + 14}`} fill={iconStroke} />
-        </g>
-      );
-    }
-    if (type === "speech") {
-      return (
-        <g fill="none" stroke={iconStroke}>
-          <path d={`M${x + 7} ${y + 16}c2 0 2-5 4-5s2 10 4 10 2-14 4-14 2 18 4 18 2-9 4-9`} />
-        </g>
-      );
-    }
-    return (
-      <g fill="none" stroke={iconStroke} strokeWidth="1.4" strokeLinecap="round">
-        <circle cx={x + 16} cy={y + 10} r="4.5" />
-        <path d={`M${x + 10} ${y + 23}c1-5 3-7 6-7s5 2 6 7`} />
-        <line x1={x + 16} y1={y + 14} x2={x + 16} y2={y + 20} />
-      </g>
-    );
-  }
-
   return (
-    <GraphicShell title="Shared Representation" subtitle="Inputs and outputs through one model core">
+    <GraphicShell title="Shared Representation" subtitle="Multimodal AI Architecture">
       <svg viewBox="0 0 280 170" className="h-full w-full">
         <defs>
-          <radialGradient id="multiCoreGlow" cx="50%" cy="50%" r="65%">
-            <stop offset="0%" stopColor="#67E8F9" stopOpacity="0.34" />
-            <stop offset="100%" stopColor="#67E8F9" stopOpacity="0.02" />
+          <radialGradient id="archGlow" cx="50%" cy="50%" r="60%">
+            <stop offset="0%" stopColor="#70d7ec" stopOpacity="0.35" />
+            <stop offset="100%" stopColor="#70d7ec" stopOpacity="0" />
           </radialGradient>
-          <linearGradient id="multiPanelBg" x1="0%" y1="0%" x2="100%" y2="100%">
+          <linearGradient id="archBg" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#020816" />
             <stop offset="100%" stopColor="#00040f" />
           </linearGradient>
-          <marker id="flowArrowMuted" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-            <path d="M0,0 L8,4 L0,8 z" fill="rgba(174,192,212,0.72)" />
+          <marker id="archArrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L8,4 L0,8 z" fill="rgba(184,196,214,0.75)" />
           </marker>
         </defs>
-        <rect x="0" y="0" width="280" height="170" fill="url(#multiPanelBg)" />
-        <text x="10" y="16" fontSize="8.5" fill="rgba(191,203,219,0.76)">Inputs</text>
-        <text x="236" y="16" fontSize="8.5" fill="rgba(191,203,219,0.76)">Outputs</text>
+        <rect x="0" y="0" width="280" height="170" fill="url(#archBg)" />
+        <circle cx="140" cy="87" r="42" fill="url(#archGlow)" />
 
-        <circle cx="140" cy="84" r="44" fill="url(#multiCoreGlow)" />
+        <text x="10" y="16" fontSize="8.5" fill="rgba(194,203,218,0.78)">Inputs</text>
+        <text x="236" y="16" fontSize="8.5" fill="rgba(194,203,218,0.78)">Outputs</text>
+
+        <g fill="none" stroke="rgba(170,186,207,0.72)" strokeWidth="1.2">
+          <rect x="8" y="24" width="36" height="26" rx="5" />
+          <rect x="8" y="62" width="36" height="26" rx="5" />
+          <rect x="8" y="100" width="36" height="26" rx="5" />
+          <rect x="236" y="24" width="36" height="26" rx="5" />
+          <rect x="236" y="62" width="36" height="26" rx="5" />
+          <rect x="236" y="100" width="36" height="26" rx="5" />
+        </g>
+
+        <g fill="rgba(231,238,248,0.92)">
+          <text x="48" y="37" fontSize="7.8">Image</text>
+          <text x="48" y="47" fontSize="6.4" fill="rgba(180,195,213,0.74)">screenshots</text>
+          <text x="48" y="75" fontSize="7.8">Text</text>
+          <text x="48" y="85" fontSize="6.4" fill="rgba(180,195,213,0.74)">prompts</text>
+          <text x="48" y="113" fontSize="7.8">Video</text>
+          <text x="48" y="123" fontSize="6.4" fill="rgba(180,195,213,0.74)">events</text>
+
+          <text x="194" y="37" textAnchor="end" fontSize="7.8">Caption</text>
+          <text x="194" y="47" textAnchor="end" fontSize="6.4" fill="rgba(180,195,213,0.74)">summaries</text>
+          <text x="194" y="75" textAnchor="end" fontSize="7.8">Speech</text>
+          <text x="194" y="85" textAnchor="end" fontSize="6.4" fill="rgba(180,195,213,0.74)">audio reply</text>
+          <text x="194" y="113" textAnchor="end" fontSize="7.8">Action</text>
+          <text x="194" y="123" textAnchor="end" fontSize="6.4" fill="rgba(180,195,213,0.74)">decisions</text>
+        </g>
 
         <path
-          d="M108 102c-9 0-16-7-16-16 0-7 4-13 11-15 2-10 10-16 21-16 7 0 13 3 18 8 3-2 6-3 10-3 10 0 18 8 18 18 0 1 0 2-0.2 2.8 6 2.2 10 7.4 10 14.2 0 8.8-7.2 16-16 16H108z"
-          fill="rgba(6,16,35,0.9)"
-          stroke="rgba(148,182,207,0.76)"
-          strokeWidth="1.4"
+          d="M110 104c-8 0-15-6-15-14 0-6 4-11 10-13 2-9 9-14 19-14 6 0 12 2 16 7 2-1 5-2 8-2 9 0 16 7 16 16v2c6 2 10 7 10 13 0 8-7 14-15 14h-49z"
+          fill="rgba(7,16,34,0.92)"
+          stroke="rgba(175,192,212,0.74)"
+          strokeWidth="1.2"
         />
-        <text x="139" y="82" textAnchor="middle" fontSize="9" fill="rgba(233,241,250,0.96)">
+        <text x="136" y="84" textAnchor="middle" fontSize="8.5" fill="rgba(236,243,250,0.95)">
           Multimodal
         </text>
-        <text x="139" y="93" textAnchor="middle" fontSize="9" fill="rgba(233,241,250,0.96)">
+        <text x="136" y="95" textAnchor="middle" fontSize="8.5" fill="rgba(236,243,250,0.95)">
           Processing
         </text>
 
-        {inputs.map((n, i) => (
-          <g key={n.name}>
-            <rect
-              x="10"
-              y={n.y}
-              width="34"
-              height="28"
-              rx="6"
-              fill="rgba(8,19,39,0.9)"
-              stroke="rgba(136,167,194,0.42)"
-            />
-            <Icon type={n.type} x={10} y={n.y} />
-            <text x="48" y={n.y + 11} fontSize="8" fill="rgba(229,238,249,0.94)">{n.name}</text>
-            <text x="48" y={n.y + 21} fontSize="6.6" fill="rgba(179,195,212,0.7)">{n.detail}</text>
-            <motion.path
-              d={`M82 ${n.y + 14} C 90 ${n.y + 14}, 98 ${n.y + 14}, 106 ${n.y + 14}`}
-              fill="none"
-              stroke="rgba(160,182,205,0.56)"
-              strokeWidth="1.2"
-              markerEnd="url(#flowArrowMuted)"
-              initial={{ opacity: 0.32 }}
-              animate={{ opacity: [0.32, 0.74, 0.32] }}
-              transition={{ duration: 2.2, delay: i * 0.22, repeat: Infinity }}
-            />
-          </g>
-        ))}
-
-        {outputs.map((n, i) => (
-          <g key={n.name}>
-            <rect
-              x="236"
-              y={n.y}
-              width="34"
-              height="28"
-              rx="6"
-              fill="rgba(8,19,39,0.9)"
-              stroke="rgba(136,167,194,0.42)"
-            />
-            <Icon type={n.type} x={236} y={n.y} />
-            <text x="196" y={n.y + 11} textAnchor="end" fontSize="8" fill="rgba(229,238,249,0.94)">{n.name}</text>
-            <text x="196" y={n.y + 21} textAnchor="end" fontSize="6.6" fill="rgba(179,195,212,0.7)">{n.detail}</text>
-            <motion.path
-              d={`M173 ${n.y + 14} C 186 ${n.y + 14}, 204 ${n.y + 14}, 234 ${n.y + 14}`}
-              fill="none"
-              stroke="rgba(160,182,205,0.56)"
-              strokeWidth="1.2"
-              markerEnd="url(#flowArrowMuted)"
-              initial={{ opacity: 0.32 }}
-              animate={{ opacity: [0.32, 0.74, 0.32] }}
-              transition={{ duration: 2.2, delay: 0.35 + i * 0.22, repeat: Infinity }}
-            />
-          </g>
-        ))}
+        <g fill="none" stroke="rgba(173,190,211,0.66)" strokeWidth="1.2" markerEnd="url(#archArrow)">
+          <line x1="80" y1="37" x2="106" y2="37" />
+          <line x1="80" y1="75" x2="104" y2="75" />
+          <line x1="80" y1="113" x2="104" y2="113" />
+          <line x1="171" y1="37" x2="234" y2="37" />
+          <line x1="171" y1="75" x2="234" y2="75" />
+          <line x1="171" y1="113" x2="234" y2="113" />
+        </g>
 
         <text x="140" y="162" textAnchor="middle" fontSize="8" fill="rgba(188,201,218,0.74)">
           Shared multimodal representation
