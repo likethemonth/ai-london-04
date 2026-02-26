@@ -38,41 +38,42 @@ function MultimodalGraphic() {
   ];
 
   function Icon({ type, x, y }) {
+    const iconStroke = "rgba(195,208,224,0.82)";
     if (type === "image") {
       return (
         <g>
-          <rect x={x + 6} y={y + 7} width="20" height="14" rx="2" fill="none" stroke="rgba(255,255,255,0.68)" />
-          <circle cx={x + 22} cy={y + 11} r="2.2" fill="rgba(255,255,255,0.68)" />
-          <path d={`M${x + 8} ${y + 19}l5-5 4 3 4-5 5 7`} fill="none" stroke="rgba(255,255,255,0.68)" />
+          <rect x={x + 6} y={y + 7} width="20" height="14" rx="2" fill="none" stroke={iconStroke} />
+          <circle cx={x + 22} cy={y + 11} r="2.2" fill={iconStroke} />
+          <path d={`M${x + 8} ${y + 19}l5-5 4 3 4-5 5 7`} fill="none" stroke={iconStroke} />
         </g>
       );
     }
     if (type === "text" || type === "caption") {
       return (
         <g>
-          <line x1={x + 7} y1={y + 10} x2={x + 25} y2={y + 10} stroke="rgba(255,255,255,0.68)" />
-          <line x1={x + 7} y1={y + 15} x2={x + 23} y2={y + 15} stroke="rgba(255,255,255,0.68)" />
-          <line x1={x + 7} y1={y + 20} x2={x + 20} y2={y + 20} stroke="rgba(255,255,255,0.68)" />
+          <line x1={x + 7} y1={y + 10} x2={x + 25} y2={y + 10} stroke={iconStroke} />
+          <line x1={x + 7} y1={y + 15} x2={x + 23} y2={y + 15} stroke={iconStroke} />
+          <line x1={x + 7} y1={y + 20} x2={x + 20} y2={y + 20} stroke={iconStroke} />
         </g>
       );
     }
     if (type === "video") {
       return (
         <g>
-          <rect x={x + 6} y={y + 7} width="20" height="14" rx="2" fill="none" stroke="rgba(255,255,255,0.68)" />
-          <polygon points={`${x + 13},${y + 11} ${x + 13},${y + 17} ${x + 18},${y + 14}`} fill="rgba(255,255,255,0.68)" />
+          <rect x={x + 6} y={y + 7} width="20" height="14" rx="2" fill="none" stroke={iconStroke} />
+          <polygon points={`${x + 13},${y + 11} ${x + 13},${y + 17} ${x + 18},${y + 14}`} fill={iconStroke} />
         </g>
       );
     }
     if (type === "speech") {
       return (
-        <g fill="none" stroke="rgba(255,255,255,0.68)">
+        <g fill="none" stroke={iconStroke}>
           <path d={`M${x + 7} ${y + 16}c2 0 2-5 4-5s2 10 4 10 2-14 4-14 2 18 4 18 2-9 4-9`} />
         </g>
       );
     }
     return (
-      <g fill="none" stroke="rgba(255,255,255,0.68)" strokeWidth="1.4" strokeLinecap="round">
+      <g fill="none" stroke={iconStroke} strokeWidth="1.4" strokeLinecap="round">
         <circle cx={x + 16} cy={y + 10} r="4.5" />
         <path d={`M${x + 10} ${y + 23}c1-5 3-7 6-7s5 2 6 7`} />
         <line x1={x + 16} y1={y + 14} x2={x + 16} y2={y + 20} />
@@ -85,28 +86,33 @@ function MultimodalGraphic() {
       <svg viewBox="0 0 280 170" className="h-full w-full">
         <defs>
           <radialGradient id="multiCoreGlow" cx="50%" cy="50%" r="65%">
-            <stop offset="0%" stopColor="#67E8F9" stopOpacity="0.44" />
-            <stop offset="100%" stopColor="#67E8F9" stopOpacity="0" />
+            <stop offset="0%" stopColor="#67E8F9" stopOpacity="0.34" />
+            <stop offset="100%" stopColor="#67E8F9" stopOpacity="0.02" />
           </radialGradient>
-          <marker id="flowArrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-            <path d="M0,0 L8,4 L0,8 z" fill="rgba(255,255,255,0.62)" />
+          <linearGradient id="multiPanelBg" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#020816" />
+            <stop offset="100%" stopColor="#00040f" />
+          </linearGradient>
+          <marker id="flowArrowMuted" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M0,0 L8,4 L0,8 z" fill="rgba(174,192,212,0.72)" />
           </marker>
         </defs>
-        <text x="10" y="16" fontSize="8.5" fill="rgba(255,255,255,0.62)">Inputs</text>
-        <text x="236" y="16" fontSize="8.5" fill="rgba(255,255,255,0.62)">Outputs</text>
+        <rect x="0" y="0" width="280" height="170" fill="url(#multiPanelBg)" />
+        <text x="10" y="16" fontSize="8.5" fill="rgba(191,203,219,0.76)">Inputs</text>
+        <text x="236" y="16" fontSize="8.5" fill="rgba(191,203,219,0.76)">Outputs</text>
 
         <circle cx="140" cy="84" r="44" fill="url(#multiCoreGlow)" />
 
         <path
           d="M108 102c-9 0-16-7-16-16 0-7 4-13 11-15 2-10 10-16 21-16 7 0 13 3 18 8 3-2 6-3 10-3 10 0 18 8 18 18 0 1 0 2-0.2 2.8 6 2.2 10 7.4 10 14.2 0 8.8-7.2 16-16 16H108z"
-          fill="rgba(5,10,22,0.86)"
-          stroke="rgba(255,255,255,0.46)"
+          fill="rgba(6,16,35,0.9)"
+          stroke="rgba(148,182,207,0.76)"
           strokeWidth="1.4"
         />
-        <text x="139" y="82" textAnchor="middle" fontSize="9" fill="rgba(255,255,255,0.96)">
+        <text x="139" y="82" textAnchor="middle" fontSize="9" fill="rgba(233,241,250,0.96)">
           Multimodal
         </text>
-        <text x="139" y="93" textAnchor="middle" fontSize="9" fill="rgba(255,255,255,0.96)">
+        <text x="139" y="93" textAnchor="middle" fontSize="9" fill="rgba(233,241,250,0.96)">
           Processing
         </text>
 
@@ -118,20 +124,20 @@ function MultimodalGraphic() {
               width="34"
               height="28"
               rx="6"
-              fill="rgba(7,11,21,0.86)"
-              stroke="rgba(255,255,255,0.28)"
+              fill="rgba(8,19,39,0.9)"
+              stroke="rgba(136,167,194,0.42)"
             />
             <Icon type={n.type} x={10} y={n.y} />
-            <text x="48" y={n.y + 11} fontSize="8" fill="rgba(255,255,255,0.9)">{n.name}</text>
-            <text x="48" y={n.y + 21} fontSize="6.6" fill="rgba(255,255,255,0.6)">{n.detail}</text>
+            <text x="48" y={n.y + 11} fontSize="8" fill="rgba(229,238,249,0.94)">{n.name}</text>
+            <text x="48" y={n.y + 21} fontSize="6.6" fill="rgba(179,195,212,0.7)">{n.detail}</text>
             <motion.path
-              d={`M92 ${n.y + 14} C 98 ${n.y + 14}, 102 ${n.y + 14}, 104 ${n.y + 14}`}
+              d={`M82 ${n.y + 14} C 90 ${n.y + 14}, 98 ${n.y + 14}, 106 ${n.y + 14}`}
               fill="none"
-              stroke="rgba(255,255,255,0.52)"
-              strokeWidth="1.3"
-              markerEnd="url(#flowArrow)"
-              initial={{ opacity: 0.25 }}
-              animate={{ opacity: [0.25, 0.85, 0.25] }}
+              stroke="rgba(160,182,205,0.56)"
+              strokeWidth="1.2"
+              markerEnd="url(#flowArrowMuted)"
+              initial={{ opacity: 0.32 }}
+              animate={{ opacity: [0.32, 0.74, 0.32] }}
               transition={{ duration: 2.2, delay: i * 0.22, repeat: Infinity }}
             />
           </g>
@@ -145,26 +151,26 @@ function MultimodalGraphic() {
               width="34"
               height="28"
               rx="6"
-              fill="rgba(7,11,21,0.86)"
-              stroke="rgba(255,255,255,0.28)"
+              fill="rgba(8,19,39,0.9)"
+              stroke="rgba(136,167,194,0.42)"
             />
             <Icon type={n.type} x={236} y={n.y} />
-            <text x="196" y={n.y + 11} textAnchor="end" fontSize="8" fill="rgba(255,255,255,0.9)">{n.name}</text>
-            <text x="196" y={n.y + 21} textAnchor="end" fontSize="6.6" fill="rgba(255,255,255,0.6)">{n.detail}</text>
+            <text x="196" y={n.y + 11} textAnchor="end" fontSize="8" fill="rgba(229,238,249,0.94)">{n.name}</text>
+            <text x="196" y={n.y + 21} textAnchor="end" fontSize="6.6" fill="rgba(179,195,212,0.7)">{n.detail}</text>
             <motion.path
-              d={`M176 ${n.y + 14} C 182 ${n.y + 14}, 188 ${n.y + 14}, 234 ${n.y + 14}`}
+              d={`M173 ${n.y + 14} C 186 ${n.y + 14}, 204 ${n.y + 14}, 234 ${n.y + 14}`}
               fill="none"
-              stroke="rgba(255,255,255,0.52)"
-              strokeWidth="1.3"
-              markerEnd="url(#flowArrow)"
-              initial={{ opacity: 0.25 }}
-              animate={{ opacity: [0.25, 0.85, 0.25] }}
+              stroke="rgba(160,182,205,0.56)"
+              strokeWidth="1.2"
+              markerEnd="url(#flowArrowMuted)"
+              initial={{ opacity: 0.32 }}
+              animate={{ opacity: [0.32, 0.74, 0.32] }}
               transition={{ duration: 2.2, delay: 0.35 + i * 0.22, repeat: Infinity }}
             />
           </g>
         ))}
 
-        <text x="140" y="162" textAnchor="middle" fontSize="8" fill="rgba(255,255,255,0.64)">
+        <text x="140" y="162" textAnchor="middle" fontSize="8" fill="rgba(188,201,218,0.74)">
           Shared multimodal representation
         </text>
       </svg>
@@ -392,23 +398,23 @@ function TallyGraphic() {
 function BigIdeaGraphic() {
   return (
     <GraphicShell title="Companion Orbit" subtitle="From query engine to lived memory">
-      <div className="relative h-full overflow-hidden rounded-2xl border border-white/10 bg-slate-950/75">
-        <div className="absolute left-1/2 top-1/2 h-14 w-14 -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-200/50 bg-cyan-300/10 shadow-[0_0_50px_rgba(34,211,238,0.45)]" />
+      <div className="relative h-full overflow-hidden rounded-2xl border border-[#3b4f77]/60 bg-[#000822]/85">
+        <div className="absolute left-1/2 top-1/2 h-14 w-14 -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-200/45 bg-cyan-300/10 shadow-[0_0_60px_rgba(89,213,245,0.38)]" />
         <motion.div
-          className="absolute left-1/2 top-1/2 h-36 w-36 -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-200/20"
+          className="absolute left-1/2 top-1/2 h-36 w-36 -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-200/25"
           animate={{ rotate: 360 }}
           transition={{ duration: 20, ease: "linear", repeat: Infinity }}
         >
-          <div className="absolute -top-1 left-1/2 h-2.5 w-2.5 -translate-x-1/2 rounded-full bg-cyan-300 shadow-[0_0_12px_rgba(34,211,238,0.9)]" />
+          <div className="absolute -top-1 left-1/2 h-2.5 w-2.5 -translate-x-1/2 rounded-full bg-cyan-300 shadow-[0_0_12px_rgba(89,213,245,0.85)]" />
         </motion.div>
         <motion.div
-          className="absolute left-1/2 top-1/2 h-56 w-56 -translate-x-1/2 -translate-y-1/2 rounded-full border border-emerald-200/20"
+          className="absolute left-1/2 top-1/2 h-56 w-56 -translate-x-1/2 -translate-y-1/2 rounded-full border border-teal-200/20"
           animate={{ rotate: -360 }}
           transition={{ duration: 28, ease: "linear", repeat: Infinity }}
         >
-          <div className="absolute -top-1 left-1/2 h-2.5 w-2.5 -translate-x-1/2 rounded-full bg-emerald-300 shadow-[0_0_12px_rgba(52,211,153,0.8)]" />
+          <div className="absolute -top-1 left-1/2 h-2.5 w-2.5 -translate-x-1/2 rounded-full bg-teal-300 shadow-[0_0_12px_rgba(93,224,198,0.8)]" />
         </motion.div>
-        <div className="absolute bottom-3 left-1/2 w-full -translate-x-1/2 text-center text-[10px] uppercase tracking-[0.2em] text-white/50">
+        <div className="absolute bottom-3 left-1/2 w-full -translate-x-1/2 text-center text-[10px] uppercase tracking-[0.2em] text-slate-300/55">
           presence • memory • agency
         </div>
       </div>
